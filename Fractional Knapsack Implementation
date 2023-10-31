@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct fractional_knapsack
+{
+    float profit,weight;
+    int index;
+    double profit_per_weight;
+};
+
+bool compare_fractional_knapsack(fractional_knapsack a,fractional_knapsack b)
+{
+    return a.profit_per_weight>b.profit_per_weight;
+}
+
+/*
+20 10
+30 20
+65 30
+48 40
+50 50
+*/
+
+int main()
+{
+    int capacity;
+    cout<<"Enter the capacity of knapsack :"<<endl;
+    cin>>capacity;
+
+    int n;
+    cout<<"Enter the number of objects :"<<endl;
+    cin>>n;
+
+    fractional_knapsack array[n];
+
+    cout<<"Enter the profits and corresponding weights :"<<endl;
+    for(int i=0; i<n; i++)
+    {
+        cin>>array[i].profit>>array[i].weight;
+        array[i].profit_per_weight=double(array[i].profit/array[i].weight);
+        array[i].index=i;
+    }
+
+    sort(array,array+n,compare_fractional_knapsack);
+
+    double max_cost=0.0;
+    vector<int> object_taken;
+
+    for(int i=0; i<n; i++)
+    {
+        if(capacity>=array[i].weight)
+        {
+            capacity=capacity-array[i].weight;
+            max_cost=max_cost+array[i].profit;
+            object_taken.push_back(array[i].index);
+        }
+        else
+        {
+            max_cost=max_cost+(capacity*array[i].profit_per_weight);
+            if(capacity!=0)
+            {
+                object_taken.push_back(array[i].index);
+            }
+            break;
+        }
+    }
+
+    cout<<"Maximum Cost : "<<max_cost<<endl;
+    cout<<"Object Taken : "<<endl;
+    for(int i=0; i<object_taken.size(); i++)
+    {
+        cout<<object_taken[i]+1<<" ";
+    }
+    cout<<endl;
+    return 0;
+}
