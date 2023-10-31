@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int MAX_NODES = 100;
+
+void bfs(int graph[][MAX_NODES], int n, int start) {
+    bool visited[MAX_NODES] = {false};
+    queue<int> q;
+    
+    q.push(start);
+    visited[start] = true;
+    
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        cout << node << " ";
+        
+        // Iterate through adjacent nodes
+        for (int i = 1; i <= n; ++i) {
+            if (graph[node][i] == 1 && !visited[i]) {
+                q.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+
+int main() {
+    int n; // Number of nodes
+    int m; // Number of edges
+    cout << "Enter the number of nodes : ";
+    cin >> n;
+    
+    int graph[MAX_NODES][MAX_NODES] = {{0}};
+    
+    cout << "Enter the number of edges : ";
+    cin >> m;
+    
+    cout << "Enter the edges in the format (u v) :\n";
+    for (int i = 1; i <= m; ++i) {
+        int u, v;
+        cin >> u >> v;
+        graph[u][v] = 1;
+        //graph[v][u] = 1; 
+        // For an undirected graph
+    }
+    
+    int start;
+    cout << "Enter the starting node: ";
+    cin >> start;
+    
+    cout << "BFS traversal starting from node " << start << ": ";
+    bfs(graph, n, start);
+    
+    return 0;
+}
