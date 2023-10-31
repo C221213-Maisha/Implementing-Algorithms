@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int MAX_NODES = 100;
+
+bool visited[MAX_NODES];
+bool graph[MAX_NODES][MAX_NODES];
+int numNodes;
+
+void dfs(int startNode) {
+    stack<int> s;
+    s.push(startNode);
+    visited[startNode] = true;
+
+    cout << "Depth-First Traversal:" << endl;
+
+    while (!s.empty()) {
+        int currentNode = s.top();
+        s.pop();
+        cout << "Visited node: " << currentNode << endl;
+
+        for (int i = 1; i <= numNodes; ++i) {
+            if (graph[currentNode][i] && !visited[i]) {
+                s.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+
+int main() {
+    cout << "Enter the number of nodes: ";
+    cin >> numNodes;
+
+    cout << "Enter the number of edges :" << endl;
+    int numEdges;
+    cin >> numEdges;
+
+    for (int i = 1; i <= numNodes; ++i) {
+        visited[i] = false;
+        for (int j = 1; j <= numNodes; ++j) {
+            graph[i][j] = false;
+        }
+    }
+
+    cout << "Enter the edges:" << endl;
+    for (int i = 1; i <= numEdges; ++i) {
+        int node1, node2;
+        cin >> node1 >> node2;
+        graph[node1][node2] = true;
+        // for an undirected graph
+        // graph[node2][node1] = true;
+    }
+
+    int startNode;
+    cout << "Enter the starting node: ";
+    cin >> startNode;
+
+    dfs(startNode);
+
+    return 0;
+}
