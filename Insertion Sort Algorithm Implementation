@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+int n,key;
+cout<<"Enter the number of elements :"<<endl;
+cin>>n;
+cout<<"Enter the elements :"<<endl;
+int a[n];
+for(int i=0;i<n;i++)
+{
+cin>>a[i];
+}
+cout<<"Enter the order in which you want the sorting. "<<endl;
+cout<<"1.Ascending Order."<<endl;
+cout<<"2.Descending Order."<<endl;
+int k;
+cin>>k;
+if(k==1)
+{
+for(int j=1;j<n;j++)
+{
+key=a[j];
+//insert a[j] in the sorted sequence 
+int i=j-1;
+while(i>=0 && a[i]>key)
+{
+a[i+1]=a[i];
+i=i-1;
+}
+a[i+1]=key;
+}
+cout<<"The sorted sequence :"<<endl;
+for(int i=0;i<n;i++)
+{
+cout<<a[i]<<" ";
+}
+}
+else
+{
+for(int j=1;j<n;j++)
+{
+key=a[j];
+//insert a[j] in the sorted sequence 
+int i=j-1;
+while(i>=0 && a[i]<key)
+{
+a[i+1]=a[i];
+i=i-1;
+}
+a[i+1]=key;
+}
+cout<<"The sorted sequence :"<<endl;
+for(int i=0;i<n;i++)
+{
+cout<<a[i]<<" ";
+}
+}
+return 0;
+}
